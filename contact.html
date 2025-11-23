@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Kshitiz - Creative Developer & Designer</title>
+    <meta name="description" content="Get in touch with Kshitiz for your next project. Let's collaborate and create something amazing together.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        'primary': '#1a1a1a',
+                        'accent': '#f59e0b',
+                        'secondary': '#6b7280'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #f59e0b;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+        }
+        
+        .contact-form input.error,
+        .contact-form textarea.error {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.05);
+        }
+        
+        .contact-form input.valid,
+        .contact-form textarea.valid {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.05);
+        }
+        
+        .error-message {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .social-link {
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-4px) scale(1.1);
+        }
+        
+        .availability-status {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .contact-info-card {
+            transition: all 0.3s ease;
+        }
+        
+        .contact-info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-primary text-white font-body">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-display font-bold">
+                    <a href="index.html">Kshitiz<span class="text-accent">.</span></a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="index.html#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="index.html#skills" class="nav-link text-gray-300 hover:text-white transition-colors">Skills</a>
+                    <a href="contact.html" class="nav-link text-accent font-semibold">Contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden mobile-menu-btn z-50">
+                    <div class="w-6 h-6 flex flex-col justify-center items-center">
+                        <span class="w-full h-0.5 bg-white transition-all duration-300"></span>
+                        <span class="w-full h-0.5 bg-white transition-all duration-300 mt-1"></span>
+                        <span class="w-full h-0.5 bg-white transition-all duration-300 mt-1"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu fixed top-0 right-0 h-full w-64 glass-effect md:hidden">
+            <div class="flex flex-col p-6 mt-20 space-y-6">
+                <a href="index.html" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">Home</a>
+                <a href="index.html#about" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">About</a>
+                <a href="index.html#skills" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">Skills</a>
+                <a href="contact.html" class="nav-link text-accent font-semibold text-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-gradient-to-b from-primary to-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <h1 class="text-5xl md:text-6xl font-display font-bold mb-6">
+                    Let's <span class="text-accent">Connect</span>
+                </h1>
+                <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    Ready to bring your ideas to life? Let's collaborate and create something amazing together.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="py-16 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-16">
+                <div class="contact-info-card glass-effect p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-accent bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Email</h3>
+                    <p class="text-gray-400 mb-3">kshitizmgrx@gmail.com</p>
+                    <a href="mailto:kshitizmgrx@gmail.com" class="text-accent hover:text-yellow-600 transition-colors">
+                        Send Email →
+                    </a>
+                </div>
+                
+                <div class="contact-info-card glass-effect p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-accent bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0C5.374 0 0 5.373 0 12s5.374 12 12 12 12-5.373 12-12S18.626 0 12 0zm5.568 8.16c-.169 1.858-.896 3.433-2.173 4.71C13.938 14.146 12.4 14.8 10.76 14.8c-.204 0-.41-.016-.615-.049-.204-.033-.372-.149-.465-.333-.094-.185-.098-.392-.011-.58.087-.188.25-.32.45-.356.904-.161 1.772-.492 2.478-1.198.706-.706 1.037-1.574 1.198-2.478.036-.2.168-.363.356-.45.188-.087.395-.083.58.011.184.093.3.261.333.465.033.205.049.411.049.615 0 1.64-.654 3.178-1.79 4.325-1.147 1.136-2.685 1.79-4.325 1.79-.204 0-.41-.016-.615-.049-.204-.033-.372-.149-.465-.333-.094-.185-.098-.392-.011-.58.087-.188.25-.32.45-.356.904-.161 1.772-.492 2.478-1.198.706-.706 1.037-1.574 1.198-2.478.036-.2.168-.363.356-.45.188-.087.395-.083.58.011.184.093.3.261.333.465.033.205.049.411.049.615z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Phone</h3>
+                    <p class="text-gray-400 mb-3">Available for calls</p>
+                    <a href="tel:+1234567890" class="text-accent hover:text-yellow-600 transition-colors">
+                        Call Now →
+                    </a>
+                </div>
+                
+                <div class="contact-info-card glass-effect p-6 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-accent bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Location</h3>
+                    <p class="text-gray-400 mb-3">Available for remote work</p>
+                    <span class="text-accent">
+                        Remote Worldwide
+                    </span>
+                </div>
+            </div>
+            
+            <!-- Availability Status -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center glass-effect px-6 py-3 rounded-full">
+                    <div class="w-3 h-3 bg-green-500 rounded-full availability-status mr-3"></div>
+                    <span class="text-green-400 font-semibold">Available for new projects</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-20 bg-gradient-to-b from-black to-primary">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Send a Message</h2>
+                    <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+                    <p class="text-xl text-gray-400">
+                        Fill out the form below and I'll get back to you within 24 hours
+                    </p>
+                </div>
+                
+                <form class="contact-form glass-effect p-8 rounded-lg" id="contactForm">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="name" class="block text-sm font-semibold mb-2">Full Name *</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg" placeholder="Your full name">
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-semibold mb-2">Email Address *</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg" placeholder="your.email@example.com">
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="phone" class="block text-sm font-semibold mb-2">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg" placeholder="+1 (555) 123-4567">
+                            <div class="error-message"></div>
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-semibold mb-2">Subject *</label>
+                            <select id="subject" name="subject" required class="w-full px-4 py-3 rounded-lg text-white bg-gray-800 border-gray-600">
+                                <option value="" class="text-gray-400">Select a subject</option>
+                                <option value="video-editing" class="text-white">Video Editing</option>
+                                <option value="design" class="text-white">Design Work</option>
+                                <option value="learning" class="text-white">Learning & Collaboration</option>
+                                <option value="other" class="text-white">Other</option>
+                            </select>
+                            <div class="error-message"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label for="message" class="block text-sm font-semibold mb-2">Message *</label>
+                        <textarea id="message" name="message" required rows="6" class="w-full px-4 py-3 rounded-lg resize-none" placeholder="Tell me about your project, goals, and any specific requirements..."></textarea>
+                        <div class="error-message"></div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="flex items-center">
+                            <input type="checkbox" name="newsletter" class="mr-3 w-4 h-4 text-accent bg-gray-800 border-gray-600 rounded focus:ring-accent">
+                            <span class="text-sm text-gray-400">
+                                I'd like to receive updates about new projects and services
+                            </span>
+                        </label>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="bg-accent hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Links -->
+<section class="py-20 bg-black">
+    <div class="container mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">Connect With Me</h2>
+            <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                Follow me on social media for updates, behind-the-scenes content, and creative insights
+            </p>
+        </div>
+        
+        <div class="flex justify-center space-x-8">
+            <!-- YouTube -->
+            <a href="https://youtube.com/@ogXitiz" class="social-link glass-effect w-16 h-16 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all duration-300">
+                <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+            </a>
+            
+            <!-- Instagram -->
+            <a href="https://instagram.com/xitiz.ae" class="social-link glass-effect w-16 h-16 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all duration-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            </a>
+            
+            <!-- TikTok -->
+            <a href="https://tiktok.com/@xitiz.ae" class="social-link glass-effect w-16 h-16 rounded-full flex items-center justify-center hover:bg-accent hover:text-black transition-all duration-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.04-3.71 2.32-4.97 1.04-1.03 2.41-1.79 3.86-1.87.42-.05.85-.03 1.27-.02.01.98 0 1.96.01 2.94 0 .1-.01.19-.02.29-.13 1.78-1.53 3.23-3.21 3.76-1.07.35-2.23.35-3.3 0-1.21-.39-2.22-1.27-2.76-2.41-.54-1.14-.59-2.5-.13-3.68.45-1.18 1.37-2.14 2.54-2.65 1.11-.49 2.39-.49 3.5 0 .14.06.27.13.4.21.01-1.17.02-2.34.03-3.51.01-.44.01-.88.01-1.32-.15-.04-.3-.08-.45-.11-.89-.21-1.8-.33-2.71-.34-2.32-.03-4.58.68-6.47 2.24-1.6 1.34-2.75 3.15-3.32 5.19-.57 2.04-.54 4.21.09 6.23 1.15 3.49 4.09 6.35 7.65 7.27 2.53.65 5.19.35 7.55-.79 1.75-.89 3.21-2.19 4.29-3.76 1.08-1.57 1.68-3.42 1.73-5.29.05-2.13-.45-4.26-1.44-6.15-.99-1.89-2.49-3.52-4.29-4.68-1.8-1.16-3.89-1.85-6.03-1.97-.42-.02-.85 0-1.27.01z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="text-2xl font-display font-bold mb-4">
+                    Kshitiz<span class="text-accent">.</span>
+                </div>
+                <p class="text-gray-500 text-sm">
+                    © 2024 Kshitiz. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            mobileMenu.classList.toggle('active');
+            
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+        
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            const notification = document.createElement('div');
+            notification.className = 'notification success show';
+            notification.textContent = 'Thank you for your message! I\'ll get back to you within 24 hours.';
+            
+            document.body.appendChild(notification);
+            
+            // Reset form
+            this.reset();
+            
+            // Remove validation classes
+            this.querySelectorAll('input, textarea, select').forEach(field => {
+                field.classList.remove('valid', 'error');
+            });
+            
+            // Remove notification after 5 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        });
+        
+        // Animate social links on scroll
+        const socialLinks = document.querySelectorAll('.social-link');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        });
+        
+        socialLinks.forEach(link => {
+            link.style.opacity = '0';
+            link.style.transform = 'translateY(20px)';
+            link.style.transition = 'all 0.3s ease';
+            observer.ob

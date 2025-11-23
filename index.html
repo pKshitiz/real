@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/x-icon" href="k.png" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kshitiz | Portfolio</title>
+    <meta name="description" content="Portfolio of Kshitiz - Creative Developer, Video Editor, and Designer specializing in modern web development and digital experiences.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://unpkg.com/splitting@1.0.6/dist/splitting.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/splitting@1.0.6/dist/splitting.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Inter', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    },
+                    colors: {
+                        'primary': '#1a1a1a',
+                        'accent': '#f59e0b',
+                        'secondary': '#6b7280'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Styles */
+        .hero-bg {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #000000 100%);
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .skill-card {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .project-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .project-card img {
+            transition: transform 0.3s ease;
+        }
+        
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .skill-progress {
+            width: 0%;
+            transition: width 1s ease;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        .notification.success {
+            background: #10b981;
+        }
+        
+        .notification.error {
+            background: #ef4444;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Navigation link hover effects */
+        .nav-link {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+        
+        /* Typewriter cursor */
+        .typed-cursor {
+            color: #f59e0b;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-primary text-white font-body overflow-x-hidden">
+    <div id="particle-bg" class="fixed inset-0 z-0"></div>
+    
+    <nav class="fixed top-0 w-full z-50 glass-effect">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="text-2xl font-display font-bold">
+                    Kshitiz<span class="text-accent">.</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors">Home</a>
+                    <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="#skills" class="nav-link text-gray-300 hover:text-white transition-colors">Skills</a>
+                    <a href="contact.html" class="nav-link text-gray-300 hover:text-white transition-colors">Contact</a>
+                </div>
+                
+                <button class="md:hidden mobile-menu-btn z-50">
+                    <div class="w-6 h-6 flex flex-col justify-center items-center">
+                        <span class="w-full h-0.5 bg-white transition-all duration-300"></span>
+                        <span class="w-full h-0.5 bg-white transition-all duration-300 mt-1"></span>
+                        <span class="w-full h-0.5 bg-white transition-all duration-300 mt-1"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <div class="mobile-menu fixed top-0 right-0 h-full w-64 glass-effect md:hidden">
+            <div class="flex flex-col p-6 mt-20 space-y-6">
+                <a href="#home" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">Home</a>
+                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">About</a>
+                <a href="#skills" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">Skills</a>
+                <a href="contact.html" class="nav-link text-gray-300 hover:text-white transition-colors text-lg">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="min-h-screen flex items-center justify-center hero-bg relative pt-20">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-5xl md:text-7xl font-display font-bold leading-tight">
+                            Hi, I'm <span class="text-accent">Kshitiz</span>
+                        </h1>
+                        <div class="text-2xl md:text-3xl text-gray-300">
+                            I'm <span id="typed-text"></span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-lg text-gray-400 leading-relaxed max-w-lg">
+                        A creative learner passionate about video editing and design. I'm currently exploring the world of programming 
+                        and digital creation, always eager to learn new skills and bring creative ideas to life.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="projects.html" class="bg-accent hover:bg-yellow-600 text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-center">
+                            View My Work
+                        </a>
+                        <a href="contact.html" class="border-2 border-accent text-accent hover:bg-accent hover:text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 text-center">
+                            Get In Touch
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center">
+                    <div class="relative">
+                        <div class="w-80 h-80 rounded-full overflow-hidden border-4 border-accent shadow-2xl">
+                            <img src="pfp.jpg" alt="Kshitiz" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -top-4 -right-4 w-8 h-8 bg-green-500 rounded-full animate-pulse"></div>
+                        <div class="absolute -bottom-4 -left-4 w-6 h-6 bg-accent rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-gray-400 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-20 bg-gradient-to-b from-primary to-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">About Me</h2>
+                <div class="w-24 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="about-content space-y-6">
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I'm a creative learner who started exploring the digital world through video editing and gaming. My curiosity drives me to learn new things and experiment with different tools and technologies.
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I've been working with video editing tools like CapCut and Alight Motion, which taught me the importance of visual storytelling and creativity. Recently, I've started learning Python and exploring the world of programming.
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        I'm still in my learning phase, but I'm passionate about growing my skills and taking on new challenges. When I'm not learning something new, you'll find me listening to music or brainstorming creative ideas.
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="glass-effect p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-accent mb-2">50+</div>
+                        <div class="text-gray-400">Projects Completed</div>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-accent mb-2">3+</div>
+                        <div class="text-gray-400">Years Experience</div>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-accent mb-2">15+</div>
+                        <div class="text-gray-400">Technologies</div>
+                    </div>
+                    <div class="glass-effect p-6 rounded-lg text-center">
+                        <div class="text-3xl font-bold text-accent mb-2">100%</div>
+                        <div class="text-gray-400">Passion</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">My Skills</h2>
+                <div class="w-24 h-1 bg-accent mx-auto mb-6"></div>
+                <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+                    I work with various technologies and tools to create amazing digital experiences
+                </p>
+            </div>
+            
+            <div class="skills-section space-y-12">
+                <div class="skill-category">
+                    <h3 class="text-2xl font-semibold mb-8 text-center flex items-center justify-center gap-3">
+                        <span class="text-3xl">🎥</span> Video Editing
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">CapCut</h4>
+                                <span class="text-accent font-mono">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="80"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Quick editing, social media content</p>
+                        </div>
+                        
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">Alight Motion</h4>
+                                <span class="text-accent font-mono">87%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="87"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Mobile animation and motion design</p>
+                        </div>
+                        
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">After Effects</h4>
+                                <span class="text-accent font-mono">78%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="78"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Motion graphics and visual effects</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="text-2xl font-semibold mb-8 text-center flex items-center justify-center gap-3">
+                        <span class="text-3xl">💻</span> Programming
+                    </h3>
+                    <div class="grid md:grid-cols-1 gap-6 max-w-md mx-auto">
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">Python</h4>
+                                <span class="text-accent font-mono">60%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="60"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Currently learning, basics and fundamentals</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 class="text-2xl font-semibold mb-8 text-center flex items-center justify-center gap-3">
+                        <span class="text-3xl">🎨</span> Design
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">Figma</h4>
+                                <span class="text-accent font-mono">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="88"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">UI/UX design, prototyping</p>
+                        </div>
+                        
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">Photoshop</h4>
+                                <span class="text-accent font-mono">82%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="82"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Photo editing, graphic design</p>
+                        </div>
+                        
+                        <div class="skill-card glass-effect p-6 rounded-lg">
+                            <div class="flex items-center justify-between mb-4">
+                                <h4 class="font-semibold text-lg">Illustrator</h4>
+                                <span class="text-accent font-mono">78%</span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <div class="skill-progress h-2 rounded-full" data-width="78"></div>
+                            </div>
+                            <p class="text-gray-400 mt-3 text-sm">Vector graphics, logo design</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer class="py-12 bg-black border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center">
+                <div class="text-2xl font-display font-bold mb-4">
+                    Kshitiz<span class="text-accent">.</span>
+                </div>
+                <p class="text-gray-400 mb-6">
+                    © 2025 Kshitiz. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+    
+    <script>
+        // Initialize Splitting.js for text animations
+        if (typeof Splitting !== 'undefined') {
+            Splitting();
+        }
+        
+        // Smooth scroll for mobile menu links (WITH FIX)
+        document.querySelectorAll('.mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const menu = document.querySelector('.mobile-menu');
+                const btn = document.querySelector('.mobile-menu-btn');
+                const spans = btn.querySelectorAll('span');
+                
+                // Close the menu
+                menu.classList.remove('active');
+                btn.classList.remove('active');
+                
+                // Reset the icon to 'hamburger' lines
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            });
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
